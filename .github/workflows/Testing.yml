@@ -44,6 +44,9 @@ jobs:
           chmod +x .github/scripts/test-swift.sh    
           sh .github/scripts/test-swift.sh         
 
+      - name: Install xcpretty
+        run: sudo gem install xcpretty
+        
       - name: Testing iOS app
         run: |
           chmod +x .github/scripts/test-app.sh      
