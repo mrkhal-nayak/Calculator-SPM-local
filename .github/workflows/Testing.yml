@@ -13,9 +13,9 @@ jobs:
       - name: Force XCode 11.3
         run: sudo xcode-select -switch /Applications/Xcode.app/Contents/Developer
       - name: Testing Swift package
-        run: |
-		chmod +X .github/scripts/test-swift.sh 
-	  	exec ./.github/scripts/test-swift.sh
+        run: chmod +X .github/scripts/test-swift.sh 
+      - name: test
+	run: exec ./.github/scripts/test-swift.sh
       - name: Testing iOS app
         run: |
           	chmod +X .github/scripts/test-app.sh 
