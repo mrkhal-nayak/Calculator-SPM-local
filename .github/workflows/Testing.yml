@@ -6,7 +6,7 @@ on:
 jobs:
   test:
     name: Testing Swift Package and iOS app
-    runs-on: macOS-latest
+    runs-on: self-hosted
     steps:
       - name: Checkout repository
         uses: actions/checkout@v1
