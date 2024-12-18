@@ -1,8 +1,33 @@
+# name: Testing
+# on:
+#   push:
+#     branches:
+#     - master
+# jobs:
+#   test:
+#     name: Testing Swift Package and iOS app
+#     runs-on: self-hosted
+#     steps:
+#       - name: Checkout repository
+#         uses: actions/checkout@v1
+#       - name: Force XCode 11.3
+#         run: sudo xcode-select -switch /Applications/Xcode.app/Contents/Developer
+#       - name: Testing Swift package
+#         run: |
+# 	  chmod +x /.github/scripts/test-swift.sh 
+#           sh /.github/scripts/test-swift.sh
+#       - name: Testing iOS app
+#         run: |
+#           chmod +x /.github/scripts/test-app.sh 
+# 	  sh /.github/scripts/test-app.sh
+
+
 name: Testing
 on:
   push:
     branches:
-    - master
+      - master
+
 jobs:
   test:
     name: Testing Swift Package and iOS app
@@ -10,13 +35,16 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v1
+
       - name: Force XCode 11.3
         run: sudo xcode-select -switch /Applications/Xcode.app/Contents/Developer
+
       - name: Testing Swift package
         run: |
-	  chmod +x /.github/scripts/test-swift.sh 
-          sh /.github/scripts/test-swift.sh
+          chmod +x .github/scripts/test-swift.sh      # Remove leading slash
+          ./ .github/scripts/test-swift.sh           # Correct execution command
+
       - name: Testing iOS app
         run: |
-          chmod +x /.github/scripts/test-app.sh 
-	  sh /.github/scripts/test-app.sh
+          chmod +x .github/scripts/test-app.sh       # Remove leading slash
+          ./ .github/scripts/test-app.sh            # Correct execution command
