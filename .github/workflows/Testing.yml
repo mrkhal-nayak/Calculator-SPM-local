@@ -41,10 +41,10 @@ jobs:
 
       - name: Testing Swift package
         run: |
-          chmod +x .github/scripts/test-swift.sh      # Remove leading slash
-          sh .github/scripts/test-swift.sh           # Correct execution command
+          chmod +x .github/scripts/test-swift.sh    
+          sh .github/scripts/test-swift.sh         
 
       - name: Testing iOS app
         run: |
-          chmod +x .github/scripts/test-app.sh       # Remove leading slash
-          sh .github/scripts/test-app.sh            # Correct execution command
+          chmod +x .github/scripts/test-app.sh      
+          sh .github/scripts/test-app.sh          
