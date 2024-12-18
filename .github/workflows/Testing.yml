@@ -15,8 +15,8 @@ jobs:
       - name: Testing Swift package
         run: |
 	  chmod +X ./.github/scripts/test-swift.sh 
-          sh ./.github/scripts/test-swift.sh
+          ./ .github/scripts/test-swift.sh
       - name: Testing iOS app
         run: |
           chmod +X .github/scripts/test-app.sh 
-	  sh ./.github/scripts/test-app.sh
+	  ./.github/scripts/test-app.sh
