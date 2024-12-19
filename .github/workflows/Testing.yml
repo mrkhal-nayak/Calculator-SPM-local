@@ -1,56 +1,59 @@
-# name: Testing
-# on:
-#   push:
-#     branches:
-#     - master
-# jobs:
-#   test:
-#     name: Testing Swift Package and iOS app
-#     runs-on: self-hosted
-#     steps:
-#       - name: Checkout repository
-#         uses: actions/checkout@v1
-#       - name: Force XCode 11.3
-#         run: sudo xcode-select -switch /Applications/Xcode.app/Contents/Developer
-#       - name: Testing Swift package
-#         run: |
-# 	  chmod +x /.github/scripts/test-swift.sh 
-#           sh /.github/scripts/test-swift.sh
-#       - name: Testing iOS app
-#         run: |
-#           chmod +x /.github/scripts/test-app.sh 
-# 	  sh /.github/scripts/test-app.sh
-
-
-name: Testing
+name: CI Pipeline
 on:
   push:
     branches:
       - master
 
 jobs:
-  test:
-    name: Testing Swift Package and iOS app
+  test-and-build:
+    name: Test and Build iOS App
     runs-on: self-hosted
     environment:
       name: TEST_ENV
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v1  
-  
-      - name: Force XCode 11.3
+      # Step 1: Checkout the repository
+      - name: Checkout Repository
+        uses: actions/checkout@v2  
+
+      # Step 2: Force the use of a specific Xcode version
+      - name: Select Xcode Version
         run: sudo xcode-select -switch /Applications/Xcode.app/Contents/Developer
 
-      - name: Testing Swift package
+      # Step 3: Testing Swift package
+      - name: Test Swift Package
         run: |
           chmod +x .github/scripts/test-swift.sh    
-          sh .github/scripts/test-swift.sh         
+          sh .github/scripts/test-swift.sh
 
+      # Step 4: Install xcpretty (for better test output formatting)
       - name: Install xcpretty
         run: sudo gem install xcpretty
-        
-      - name: Testing iOS app
+
+      # Step 5: Testing iOS app
+      - name: Test iOS App
         run: |
           chmod +x .github/scripts/test-app.sh      
-          sh .github/scripts/test-app.sh          
+          sh .github/scripts/test-app.sh  
+
+     # Step 6: Install dependencies (if required)
+      - name: Install CocoaPods dependencies
+        run: |
+          cd ./YourProjectFolder
+          pod install
+
+      # Step 7: Build the app
+      - name: Build the iOS app
+        run: |
+          xcodebuild \
+            -workspace YourProject.xcworkspace \ # Use .xcodeproj if not using CocoaPods
+            -scheme YourSchemeName \
+            -destination 'platform=iOS Simulator,name=iPhone 14' \
+            clean build
+
+      # Step 8: Run the app in the simulator
+      - name: Run app in iOS Simulator
+        run: |
+          xcrun simctl boot "iPhone 14"
+          xcrun simctl install booted ./YourApp.app
+          xcrun simctl launch booted com.your.bundle.identifier
