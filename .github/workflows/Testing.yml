@@ -41,7 +41,7 @@ jobs:
         run: |
           xcodebuild \
             -workspace Calculator iOS project.xcworkspace \ # Use .xcodeproj if not using CocoaPods
-            -scheme Calculator iOS \
+            -scheme Calculator \
             -destination 'platform=iOS Simulator,name=iPhone 14' \
             clean build
 
