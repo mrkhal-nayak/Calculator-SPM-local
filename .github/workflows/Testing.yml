@@ -41,7 +41,7 @@ jobs:
         run: |
           xcodebuild \
             -workspace Calculator-SPM-Local.xcworkspace \ # Use .xcodeproj if not using CocoaPods
-            -scheme Calculator_SPM-Local \
+            -scheme Calculator-SPM-Local \
             -destination 'platform=iOS Simulator,name=iPhone 14' \
             clean build
 
