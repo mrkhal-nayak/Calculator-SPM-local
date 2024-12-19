@@ -36,13 +36,7 @@ jobs:
           chmod +x .github/scripts/test-app.sh      
           sh .github/scripts/test-app.sh  
 
-     # Step 6: Install dependencies (if required)
-      - name: Install CocoaPods dependencies
-        run: |
-          cd ./YourProjectFolder
-          pod install
-
-      # Step 7: Build the app
+     # Step 7: Build the app
       - name: Build the iOS app
         run: |
           xcodebuild \
