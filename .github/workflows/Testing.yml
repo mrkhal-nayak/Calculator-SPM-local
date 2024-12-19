@@ -40,8 +40,8 @@ jobs:
       - name: Build the iOS app
         run: |
           xcodebuild \
-            -workspace YourProject.xcworkspace \ # Use .xcodeproj if not using CocoaPods
-            -scheme YourSchemeName \
+            -workspace Calculator-SPM-Local.xcworkspace \ # Use .xcodeproj if not using CocoaPods
+            -scheme Calculator_SPM-Local \
             -destination 'platform=iOS Simulator,name=iPhone 14' \
             clean build
 
