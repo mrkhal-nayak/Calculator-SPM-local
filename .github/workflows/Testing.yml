@@ -48,6 +48,10 @@ jobs:
       # Step 8: Run the app in the simulator
       - name: Run app in iOS Simulator
         run: |
-          xcrun simctl boot "iPhone 16 Pro"
+          DEVICE_NAME="iPhone 16 Pro"
+	  BOOTED=$(xcrun simctl list devices | grep "DEVICE_NAME" | grep "Booted)
+	  if [ -z "Booted" ]; then
+	    xcrun simctl boot "$DEVICE_NAME"
+	  fi
           xcrun simctl install booted ./build/Build/Products/Debug-iphonesimulator/Calculator.app
           xcrun simctl launch booted com.your.bundle.identifier
