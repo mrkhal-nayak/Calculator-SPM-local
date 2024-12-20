@@ -44,9 +44,16 @@ jobs:
             -scheme "Calculator iOS" \
             -destination 'platform=iOS Simulator,name=iPhone 16 Pro' \
             clean build
+     
+
+     # Step 8: Debug Build Directory
+      - name: Debug Build Directory
+        run: |
+          echo "Contents of build directory:"
+          ls -l ./build
 
 
-     # Step 8: Debug Build Output Path
+     # Step 9: Debug Build Output Path
       - name: Debug Build Output Path
         run: |
           echo "Contents of build/Build/Products/Debug-iphonesimulator:"
@@ -54,7 +61,7 @@ jobs:
 
 
 
-      # Step 9: Run the app in the simulator
+      # Step 10: Run the app in the simulator
       - name: Run app in iOS Simulator
         run: |
           DEVICE_NAME="iPhone 16 Pro"
