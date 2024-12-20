@@ -49,5 +49,5 @@ jobs:
       - name: Run app in iOS Simulator
         run: |
           xcrun simctl boot "iPhone 16 Pro"
-          xcrun simctl install booted ./YourApp.app
+          xcrun simctl install booted ./build/Build/Products/Debug-iphonesimulator/Calculator.app
           xcrun simctl launch booted com.your.bundle.identifier
