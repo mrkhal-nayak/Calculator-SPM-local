@@ -75,7 +75,7 @@ jobs:
           if [ -z "$BOOTED" ]; then
             xcrun simctl boot "$DEVICE_NAME"
           fi
-          xcrun simctl install booted ~/Library/Developer/Xcode/DerivedData/Calculator-*/Build/Products/Debug-iphonesimulator/Calculator.app
+          xcrun simctl install booted ~/Library/Developer/Xcode/DerivedData/Calculator-*/Build/Products/Debug-iphonesimulator/ABC.Calculator
           xcrun simctl launch booted com.your.bundle.identifier
 
       # Step 12: List Installed Apps on Simulator
