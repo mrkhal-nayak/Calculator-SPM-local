@@ -78,7 +78,7 @@ jobs:
           xcrun simctl install booted ~/Library/Developer/Xcode/DerivedData/Calculator-*/Build/Products/Debug-iphonesimulator/Calculator.app
           xcrun simctl launch booted ABC.Calculator
 
-      # Step 12: List Installed Apps on Simulator
+      # Step 12: List Installed Apps on the Simulator
       - name: List Installed Apps on Simulator
         run: |
           echo "Listing installed apps on the simulator:"
