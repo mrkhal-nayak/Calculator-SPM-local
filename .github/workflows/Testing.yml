@@ -42,7 +42,7 @@ jobs:
           xcodebuild \
             -workspace Calculator.xcworkspace \
             -scheme "Calculator iOS" \
-            -destination 'platform=iOS Simulator,name=iPhone 14' \
+            -destination 'platform=iOS Simulator,name=iPhone 16 Pro' \
             clean build
 
       # Step 8: Run the app in the simulator
