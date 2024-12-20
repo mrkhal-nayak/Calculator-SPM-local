@@ -45,7 +45,16 @@ jobs:
             -destination 'platform=iOS Simulator,name=iPhone 16 Pro' \
             clean build
 
-      # Step 8: Run the app in the simulator
+
+     # Step 8: Debug Build Output Path
+      - name: Debug Build Output Path
+        run: |
+          echo "Contents of build/Build/Products/Debug-iphonesimulator:"
+          ls -l ./build/Build/Products/Debug-iphonesimulator
+
+
+
+      # Step 9: Run the app in the simulator
       - name: Run app in iOS Simulator
         run: |
           DEVICE_NAME="iPhone 16 Pro"
