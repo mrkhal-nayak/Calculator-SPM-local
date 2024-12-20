@@ -14,54 +14,54 @@ jobs:
     steps:
       # Step 1: Checkout the repository
       - name: Checkout Repository
-        uses: actions/checkout@v2  
+        uses: actions/checkout@v2
 
       # Step 2: Force the use of a specific Xcode version
       - name: Select Xcode Version
         run: sudo xcode-select -switch /Applications/Xcode.app/Contents/Developer
 
-      # Step 3: Testing Swift package
+      # Step 3: List Schemes
+      - name: List Schemes
+        run: xcodebuild -workspace Calculator.xcworkspace -list
+
+      # Step 4: Testing Swift package
       - name: Test Swift Package
         run: |
-          chmod +x .github/scripts/test-swift.sh    
+          chmod +x .github/scripts/test-swift.sh
           sh .github/scripts/test-swift.sh
 
-      # Step 4: Install xcpretty (for better test output formatting)
+      # Step 5: Install xcpretty (for better test output formatting)
       - name: Install xcpretty
         run: sudo gem install xcpretty
 
-      # Step 5: Testing iOS app
+      # Step 6: Testing iOS app
       - name: Test iOS App
         run: |
-          chmod +x .github/scripts/test-app.sh      
-          sh .github/scripts/test-app.sh  
+          chmod +x .github/scripts/test-app.sh
+          sh .github/scripts/test-app.sh
 
-     # Step 7: Build the app
+      # Step 7: Build the app
       - name: Build the iOS app
         run: |
           xcodebuild \
             -workspace Calculator.xcworkspace \
             -scheme "Calculator iOS" \
             -destination 'platform=iOS Simulator,name=iPhone 16 Pro' \
-            clean build
-     
+            clean build | xcpretty
 
-     # Step 8: Debug Build Directory
-      - name: Debug Build Directory
+      # Step 8: Debug DerivedData Directory
+      - name: Debug DerivedData Directory
         run: |
-          echo "Contents of build directory:"
-          ls -l ./build
+          echo "Contents of DerivedData directory:"
+          ls -l ~/Library/Developer/Xcode/DerivedData
 
-
-     # Step 9: Debug Build Output Path
-      - name: Debug Build Output Path
+      # Step 9: Debug Build Products Directory
+      - name: Debug Build Products Directory
         run: |
-          echo "Contents of build/Build/Products/Debug-iphonesimulator:"
-          ls -l ./build/Build/Products/Debug-iphonesimulator
+          echo "Contents of DerivedData build products directory:"
+          ls -l ~/Library/Developer/Xcode/DerivedData/Calculator-*/Build/Products/Debug-iphonesimulator
 
-
-
-      # Step 10: Run the app in the simulator
+      # Step 10: Run the app in iOS Simulator
       - name: Run app in iOS Simulator
         run: |
           DEVICE_NAME="iPhone 16 Pro"
@@ -69,5 +69,5 @@ jobs:
           if [ -z "$BOOTED" ]; then
             xcrun simctl boot "$DEVICE_NAME"
           fi
-          xcrun simctl install booted ./build/Build/Products/Debug-iphonesimulator/Calculator.app
+          xcrun simctl install booted ~/Library/Developer/Xcode/DerivedData/Calculator-*/Build/Products/Debug-iphonesimulator/Calculator.app
           xcrun simctl launch booted com.your.bundle.identifier
