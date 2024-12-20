@@ -61,7 +61,13 @@ jobs:
           echo "Contents of DerivedData build products directory:"
           ls -l ~/Library/Developer/Xcode/DerivedData/Calculator-*/Build/Products/Debug-iphonesimulator
 
-      # Step 10: Run the app in iOS Simulator
+      # Step 10: Verify Bundle Identifier
+      - name: Verify Bundle Identifier
+        run: |
+          echo "Verifying bundle identifier in Info.plist:"
+          /usr/libexec/PlistBuddy -c "Print CFBundleIdentifier" ~/Library/Developer/Xcode/DerivedData/Calculator-*/Build/Products/Debug-iphonesimulator/Calculator.app/Info.plist
+
+      # Step 11: Run the app in iOS Simulator
       - name: Run app in iOS Simulator
         run: |
           DEVICE_NAME="iPhone 16 Pro"
@@ -71,3 +77,9 @@ jobs:
           fi
           xcrun simctl install booted ~/Library/Developer/Xcode/DerivedData/Calculator-*/Build/Products/Debug-iphonesimulator/Calculator.app
           xcrun simctl launch booted com.your.bundle.identifier
+
+      # Step 12: List Installed Apps on Simulator
+      - name: List Installed Apps on Simulator
+        run: |
+          echo "Listing installed apps on the simulator:"
+          xcrun simctl get_app_container booted com.your.bundle.identifier
